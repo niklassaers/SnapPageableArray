@@ -12,7 +12,61 @@
 		85484BBE1D478B4F00036DB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85484BBC1D478B4F00036DB8 /* Main.storyboard */; };
 		85484BC01D478B4F00036DB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85484BBF1D478B4F00036DB8 /* Assets.xcassets */; };
 		85484BC31D478B4F00036DB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85484BC11D478B4F00036DB8 /* LaunchScreen.storyboard */; };
+		85484BD21D478B7400036DB8 /* SnapPageableArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 85484BD11D478B7400036DB8 /* SnapPageableArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		85484BD91D478B7400036DB8 /* SnapPageableArray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85484BCF1D478B7400036DB8 /* SnapPageableArray.framework */; };
+		85484BE01D478B7400036DB8 /* SnapPageableArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BDF1D478B7400036DB8 /* SnapPageableArrayTests.swift */; };
+		85484BE41D478B7400036DB8 /* SnapPageableArray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85484BCF1D478B7400036DB8 /* SnapPageableArray.framework */; };
+		85484BE51D478B7400036DB8 /* SnapPageableArray.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 85484BCF1D478B7400036DB8 /* SnapPageableArray.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		85484BF31D478BA100036DB8 /* ElementWithState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BEE1D478BA100036DB8 /* ElementWithState.swift */; };
+		85484BF41D478BA100036DB8 /* PageableArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BEF1D478BA100036DB8 /* PageableArray.swift */; };
+		85484BF51D478BA100036DB8 /* PageableArrayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BF01D478BA100036DB8 /* PageableArrayDelegate.swift */; };
+		85484BF61D478BA100036DB8 /* PageableArrayProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BF11D478BA100036DB8 /* PageableArrayProtocol.swift */; };
+		85484BF71D478BA100036DB8 /* UpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BF21D478BA100036DB8 /* UpdateResult.swift */; };
+		85484BF91D478BD700036DB8 /* DTOProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BF81D478BD700036DB8 /* DTOProtocol.swift */; };
+		85484BFB1D478BEB00036DB8 /* DTOState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BFA1D478BEB00036DB8 /* DTOState.swift */; };
+		85484BFD1D478C0100036DB8 /* CacheableDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BFC1D478C0100036DB8 /* CacheableDTO.swift */; };
+		85484BFF1D478C2500036DB8 /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BFE1D478C2500036DB8 /* Pageable.swift */; };
+		85484C011D478C4A00036DB8 /* DictConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484C001D478C4A00036DB8 /* DictConvertible.swift */; };
+		85484C031D478CC500036DB8 /* DictionaryHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484C021D478CC500036DB8 /* DictionaryHelpers.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		85484BDA1D478B7400036DB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85484BAD1D478B4F00036DB8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85484BCE1D478B7400036DB8;
+			remoteInfo = SnapPageableArray;
+		};
+		85484BDC1D478B7400036DB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85484BAD1D478B4F00036DB8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85484BB41D478B4F00036DB8;
+			remoteInfo = Example;
+		};
+		85484BE21D478B7400036DB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85484BAD1D478B4F00036DB8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85484BCE1D478B7400036DB8;
+			remoteInfo = SnapPageableArray;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		85484BE91D478B7400036DB8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				85484BE51D478B7400036DB8 /* SnapPageableArray.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		85484BB51D478B4F00036DB8 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +76,23 @@
 		85484BBF1D478B4F00036DB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85484BC21D478B4F00036DB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85484BC41D478B4F00036DB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85484BCF1D478B7400036DB8 /* SnapPageableArray.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapPageableArray.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85484BD11D478B7400036DB8 /* SnapPageableArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnapPageableArray.h; sourceTree = "<group>"; };
+		85484BD31D478B7400036DB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85484BD81D478B7400036DB8 /* SnapPageableArrayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapPageableArrayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		85484BDF1D478B7400036DB8 /* SnapPageableArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapPageableArrayTests.swift; sourceTree = "<group>"; };
+		85484BE11D478B7400036DB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85484BEE1D478BA100036DB8 /* ElementWithState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementWithState.swift; sourceTree = "<group>"; };
+		85484BEF1D478BA100036DB8 /* PageableArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageableArray.swift; sourceTree = "<group>"; };
+		85484BF01D478BA100036DB8 /* PageableArrayDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageableArrayDelegate.swift; sourceTree = "<group>"; };
+		85484BF11D478BA100036DB8 /* PageableArrayProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageableArrayProtocol.swift; sourceTree = "<group>"; };
+		85484BF21D478BA100036DB8 /* UpdateResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateResult.swift; sourceTree = "<group>"; };
+		85484BF81D478BD700036DB8 /* DTOProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTOProtocol.swift; sourceTree = "<group>"; };
+		85484BFA1D478BEB00036DB8 /* DTOState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTOState.swift; sourceTree = "<group>"; };
+		85484BFC1D478C0100036DB8 /* CacheableDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheableDTO.swift; sourceTree = "<group>"; };
+		85484BFE1D478C2500036DB8 /* Pageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
+		85484C001D478C4A00036DB8 /* DictConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictConvertible.swift; sourceTree = "<group>"; };
+		85484C021D478CC500036DB8 /* DictionaryHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +100,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85484BE41D478B7400036DB8 /* SnapPageableArray.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85484BCB1D478B7400036DB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85484BD51D478B7400036DB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85484BD91D478B7400036DB8 /* SnapPageableArray.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				85484BB71D478B4F00036DB8 /* Example */,
+				85484BD01D478B7400036DB8 /* SnapPageableArray */,
+				85484BDE1D478B7400036DB8 /* SnapPageableArrayTests */,
 				85484BB61D478B4F00036DB8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				85484BB51D478B4F00036DB8 /* Example.app */,
+				85484BCF1D478B7400036DB8 /* SnapPageableArray.framework */,
+				85484BD81D478B7400036DB8 /* SnapPageableArrayTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,7 +155,55 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
+		85484BD01D478B7400036DB8 /* SnapPageableArray */ = {
+			isa = PBXGroup;
+			children = (
+				85484BFC1D478C0100036DB8 /* CacheableDTO.swift */,
+				85484BFA1D478BEB00036DB8 /* DTOState.swift */,
+				85484BF81D478BD700036DB8 /* DTOProtocol.swift */,
+				85484BEE1D478BA100036DB8 /* ElementWithState.swift */,
+				85484BEF1D478BA100036DB8 /* PageableArray.swift */,
+				85484BFE1D478C2500036DB8 /* Pageable.swift */,
+				85484BF01D478BA100036DB8 /* PageableArrayDelegate.swift */,
+				85484BF11D478BA100036DB8 /* PageableArrayProtocol.swift */,
+				85484BF21D478BA100036DB8 /* UpdateResult.swift */,
+				85484C001D478C4A00036DB8 /* DictConvertible.swift */,
+				85484C021D478CC500036DB8 /* DictionaryHelpers.swift */,
+				85484BED1D478B9500036DB8 /* Support */,
+			);
+			path = SnapPageableArray;
+			sourceTree = "<group>";
+		};
+		85484BDE1D478B7400036DB8 /* SnapPageableArrayTests */ = {
+			isa = PBXGroup;
+			children = (
+				85484BDF1D478B7400036DB8 /* SnapPageableArrayTests.swift */,
+				85484BE11D478B7400036DB8 /* Info.plist */,
+			);
+			path = SnapPageableArrayTests;
+			sourceTree = "<group>";
+		};
+		85484BED1D478B9500036DB8 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				85484BD11D478B7400036DB8 /* SnapPageableArray.h */,
+				85484BD31D478B7400036DB8 /* Info.plist */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		85484BCC1D478B7400036DB8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85484BD21D478B7400036DB8 /* SnapPageableArray.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		85484BB41D478B4F00036DB8 /* Example */ = {
@@ -74,15 +213,54 @@
 				85484BB11D478B4F00036DB8 /* Sources */,
 				85484BB21D478B4F00036DB8 /* Frameworks */,
 				85484BB31D478B4F00036DB8 /* Resources */,
+				85484BE91D478B7400036DB8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				85484BE31D478B7400036DB8 /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
 			productReference = 85484BB51D478B4F00036DB8 /* Example.app */;
 			productType = "com.apple.product-type.application";
+		};
+		85484BCE1D478B7400036DB8 /* SnapPageableArray */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85484BE61D478B7400036DB8 /* Build configuration list for PBXNativeTarget "SnapPageableArray" */;
+			buildPhases = (
+				85484BCA1D478B7400036DB8 /* Sources */,
+				85484BCB1D478B7400036DB8 /* Frameworks */,
+				85484BCC1D478B7400036DB8 /* Headers */,
+				85484BCD1D478B7400036DB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SnapPageableArray;
+			productName = SnapPageableArray;
+			productReference = 85484BCF1D478B7400036DB8 /* SnapPageableArray.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		85484BD71D478B7400036DB8 /* SnapPageableArrayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85484BEA1D478B7400036DB8 /* Build configuration list for PBXNativeTarget "SnapPageableArrayTests" */;
+			buildPhases = (
+				85484BD41D478B7400036DB8 /* Sources */,
+				85484BD51D478B7400036DB8 /* Frameworks */,
+				85484BD61D478B7400036DB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				85484BDB1D478B7400036DB8 /* PBXTargetDependency */,
+				85484BDD1D478B7400036DB8 /* PBXTargetDependency */,
+			);
+			name = SnapPageableArrayTests;
+			productName = SnapPageableArrayTests;
+			productReference = 85484BD81D478B7400036DB8 /* SnapPageableArrayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -96,6 +274,13 @@
 				TargetAttributes = {
 					85484BB41D478B4F00036DB8 = {
 						CreatedOnToolsVersion = 7.3.1;
+					};
+					85484BCE1D478B7400036DB8 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					85484BD71D478B7400036DB8 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 85484BB41D478B4F00036DB8;
 					};
 				};
 			};
@@ -113,6 +298,8 @@
 			projectRoot = "";
 			targets = (
 				85484BB41D478B4F00036DB8 /* Example */,
+				85484BCE1D478B7400036DB8 /* SnapPageableArray */,
+				85484BD71D478B7400036DB8 /* SnapPageableArrayTests */,
 			);
 		};
 /* End PBXProject section */
@@ -128,6 +315,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		85484BCD1D478B7400036DB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85484BD61D478B7400036DB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -140,7 +341,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		85484BCA1D478B7400036DB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85484BF61D478BA100036DB8 /* PageableArrayProtocol.swift in Sources */,
+				85484BF91D478BD700036DB8 /* DTOProtocol.swift in Sources */,
+				85484BF41D478BA100036DB8 /* PageableArray.swift in Sources */,
+				85484C031D478CC500036DB8 /* DictionaryHelpers.swift in Sources */,
+				85484BF71D478BA100036DB8 /* UpdateResult.swift in Sources */,
+				85484BFD1D478C0100036DB8 /* CacheableDTO.swift in Sources */,
+				85484C011D478C4A00036DB8 /* DictConvertible.swift in Sources */,
+				85484BF31D478BA100036DB8 /* ElementWithState.swift in Sources */,
+				85484BFF1D478C2500036DB8 /* Pageable.swift in Sources */,
+				85484BFB1D478BEB00036DB8 /* DTOState.swift in Sources */,
+				85484BF51D478BA100036DB8 /* PageableArrayDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85484BD41D478B7400036DB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85484BE01D478B7400036DB8 /* SnapPageableArrayTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		85484BDB1D478B7400036DB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85484BCE1D478B7400036DB8 /* SnapPageableArray */;
+			targetProxy = 85484BDA1D478B7400036DB8 /* PBXContainerItemProxy */;
+		};
+		85484BDD1D478B7400036DB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85484BB41D478B4F00036DB8 /* Example */;
+			targetProxy = 85484BDC1D478B7400036DB8 /* PBXContainerItemProxy */;
+		};
+		85484BE31D478B7400036DB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85484BCE1D478B7400036DB8 /* SnapPageableArray */;
+			targetProxy = 85484BE21D478B7400036DB8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		85484BBC1D478B4F00036DB8 /* Main.storyboard */ = {
@@ -251,6 +496,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.pageablearray.Example;
@@ -262,10 +508,74 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.pageablearray.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		85484BE71D478B7400036DB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SnapPageableArray/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.pageablearray.SnapPageableArray;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		85484BE81D478B7400036DB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SnapPageableArray/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.pageablearray.SnapPageableArray;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		85484BEB1D478B7400036DB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SnapPageableArrayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.pageablearray.SnapPageableArrayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
+			};
+			name = Debug;
+		};
+		85484BEC1D478B7400036DB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SnapPageableArrayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.pageablearray.SnapPageableArrayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
 			};
 			name = Release;
 		};
@@ -286,6 +596,22 @@
 			buildConfigurations = (
 				85484BC81D478B4F00036DB8 /* Debug */,
 				85484BC91D478B4F00036DB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		85484BE61D478B7400036DB8 /* Build configuration list for PBXNativeTarget "SnapPageableArray" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85484BE71D478B7400036DB8 /* Debug */,
+				85484BE81D478B7400036DB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		85484BEA1D478B7400036DB8 /* Build configuration list for PBXNativeTarget "SnapPageableArrayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85484BEB1D478B7400036DB8 /* Debug */,
+				85484BEC1D478B7400036DB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
