@@ -10,8 +10,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         array.delegate = self
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,6 +58,21 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
-extension ViewController: UICollectionViewDelegate {
+extension ViewController: UICollectionViewDelegateFlowLayout {
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let fullWidth = self.view.bounds.size.width
+        let width: CGFloat
+        if fullWidth >= 1024 {
+            width = (fullWidth - 15) / 8
+        } else if fullWidth >= 768 {
+            width = (fullWidth - 15) / 6
+        } else if fullWidth >= 414 {
+            width = (fullWidth - 15) / 3
+        } else {
+            width = (fullWidth - 15) / 2
+        }
+        
+        return CGSizeMake(width, width)
+    }
 }
