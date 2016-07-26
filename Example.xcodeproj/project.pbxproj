@@ -28,6 +28,8 @@
 		85484BFF1D478C2500036DB8 /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484BFE1D478C2500036DB8 /* Pageable.swift */; };
 		85484C011D478C4A00036DB8 /* DictConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484C001D478C4A00036DB8 /* DictConvertible.swift */; };
 		85484C031D478CC500036DB8 /* DictionaryHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85484C021D478CC500036DB8 /* DictionaryHelpers.swift */; };
+		85CCA6D71D47E36700FB0928 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA6D61D47E36700FB0928 /* LocalData.swift */; };
+		85CCA6D91D47E48A00FB0928 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA6D81D47E48A00FB0928 /* Cell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,8 @@
 		85484BFE1D478C2500036DB8 /* Pageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
 		85484C001D478C4A00036DB8 /* DictConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictConvertible.swift; sourceTree = "<group>"; };
 		85484C021D478CC500036DB8 /* DictionaryHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryHelpers.swift; sourceTree = "<group>"; };
+		85CCA6D61D47E36700FB0928 /* LocalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
+		85CCA6D81D47E48A00FB0928 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,8 @@
 				85484BBF1D478B4F00036DB8 /* Assets.xcassets */,
 				85484BC11D478B4F00036DB8 /* LaunchScreen.storyboard */,
 				85484BC41D478B4F00036DB8 /* Info.plist */,
+				85CCA6D61D47E36700FB0928 /* LocalData.swift */,
+				85CCA6D81D47E48A00FB0928 /* Cell.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -336,6 +342,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85CCA6D71D47E36700FB0928 /* LocalData.swift in Sources */,
+				85CCA6D91D47E48A00FB0928 /* Cell.swift in Sources */,
 				85484BBB1D478B4F00036DB8 /* ViewController.swift in Sources */,
 				85484BB91D478B4F00036DB8 /* AppDelegate.swift in Sources */,
 			);
@@ -598,6 +606,7 @@
 				85484BC91D478B4F00036DB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		85484BE61D478B7400036DB8 /* Build configuration list for PBXNativeTarget "SnapPageableArray" */ = {
 			isa = XCConfigurationList;
@@ -606,6 +615,7 @@
 				85484BE81D478B7400036DB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		85484BEA1D478B7400036DB8 /* Build configuration list for PBXNativeTarget "SnapPageableArrayTests" */ = {
 			isa = XCConfigurationList;
@@ -614,6 +624,7 @@
 				85484BEC1D478B7400036DB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
