@@ -6,6 +6,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView?
     static let kPageSize: UInt = 40
     var array = PageableArray<LocalData>(capacity: 960, pageSize: ViewController.kPageSize)
+    var genDataQueue: dispatch_queue_t = dispatch_queue_create("genDataQueue", DISPATCH_QUEUE_CONCURRENT)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,16 +24,22 @@ class ViewController: UIViewController {
 
     func topUp() {
 
-        var data = [LocalData]()
-        for _ in 0..<ViewController.kPageSize {
-            data.append(genDataElement())
-        }
-
-        array.topUpWithElements(data)
-        collectionView?.reloadData()
-
-        delay(5.0) {
-            self.topUp()
+        dispatch_async(genDataQueue) {
+            
+            var data = [LocalData]()
+            for _ in 0..<ViewController.kPageSize {
+                data.append(self.genDataElement())
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                
+                self.array.topUpWithElements(data)
+                self.collectionView?.reloadData()
+                
+                self.delay(5.0) {
+                    self.topUp()
+                }
+            }
         }
     }
 
@@ -42,12 +49,13 @@ class ViewController: UIViewController {
         if start > array.count - ViewController.kPageSize {
             start = array.count - ViewController.kPageSize
         }
-
+        
         let end = start + ViewController.kPageSize
         let range: Range<UInt> = start..<end
+        
         loadContentForRange(range, pageSize: ViewController.kPageSize)
         collectionView?.reloadData()
-
+        
         delay(3.0) {
             self.reloadRandomRange()
         }
@@ -73,14 +81,21 @@ class ViewController: UIViewController {
 
 extension ViewController: PageableArrayDelegate {
     func loadContentForRange(range: Range<UInt>, pageSize: UInt) {
-        var data = [LocalData]()
-        for _ in 0..<pageSize {
-            data.append(genDataElement())
+        
+        dispatch_async(genDataQueue) {
+            
+            var data = [LocalData]()
+            for _ in 0..<pageSize {
+                data.append(self.genDataElement())
+            }
+            
+            let pageNumber = range.startIndex / pageSize
+            let page = Pageable(page: pageNumber, pageSize: pageSize)
+            dispatch_async(dispatch_get_main_queue()) {
+                
+                self.array.updatePage(page, withElements: data)
+            }
         }
-
-        let pageNumber = range.startIndex / pageSize
-        let page = Pageable(page: pageNumber, pageSize: pageSize)
-        array.updatePage(page, withElements: data)
     }
 }
 
