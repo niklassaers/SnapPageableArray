@@ -4,7 +4,8 @@ import SnapPageableArray
 class ViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView?
-    var array = PageableArray<LocalData>(capacity: 960, pageSize: 40)
+    static let kPageSize: UInt = 40
+    var array = PageableArray<LocalData>(capacity: 960, pageSize: ViewController.kPageSize)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +23,8 @@ class ViewController: UIViewController {
     
     func topUp() {
         
-        let pageSize = UInt(40 * drand48())
         var data = [LocalData]()
-        for _ in 0..<pageSize {
+        for _ in 0..<ViewController.kPageSize {
             data.append(genDataElement())
         }
         
@@ -38,11 +38,14 @@ class ViewController: UIViewController {
     
     func reloadRandomRange() {
         
-        let start : UInt = max(920 as UInt, UInt(Double(array.count) * drand48()))
-        let pageSize = UInt(40 * drand48())
-        let end = start + pageSize
+        var start : UInt = UInt(Double(array.count) * drand48())
+        if start > array.count - ViewController.kPageSize {
+            start = array.count - ViewController.kPageSize
+        }
+        
+        let end = start + ViewController.kPageSize
         let range: Range<UInt> = start..<end
-        loadContentForRange(range, pageSize: pageSize)
+        loadContentForRange(range, pageSize: ViewController.kPageSize)
         collectionView?.reloadData()
         
         delay(3.0) {
