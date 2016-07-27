@@ -6,48 +6,48 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView?
     static let kPageSize: UInt = 40
     var array = PageableArray<LocalData>(capacity: 960, pageSize: ViewController.kPageSize)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         array.delegate = self
-        
+
         delay(3.0) {
             self.reloadRandomRange()
         }
-        
+
         delay(5.0) {
             self.topUp()
         }
     }
-    
+
     func topUp() {
-        
+
         var data = [LocalData]()
         for _ in 0..<ViewController.kPageSize {
             data.append(genDataElement())
         }
-        
+
         array.topUpWithElements(data)
         collectionView?.reloadData()
-        
+
         delay(5.0) {
             self.topUp()
         }
     }
-    
+
     func reloadRandomRange() {
-        
-        var start : UInt = UInt(Double(array.count) * drand48())
+
+        var start: UInt = UInt(Double(array.count) * drand48())
         if start > array.count - ViewController.kPageSize {
             start = array.count - ViewController.kPageSize
         }
-        
+
         let end = start + ViewController.kPageSize
         let range: Range<UInt> = start..<end
         loadContentForRange(range, pageSize: ViewController.kPageSize)
         collectionView?.reloadData()
-        
+
         delay(3.0) {
             self.reloadRandomRange()
         }
@@ -61,12 +61,12 @@ class ViewController: UIViewController {
     }
 
     func genDataElement() -> LocalData {
-        
-        var rnd : UInt64 = 0
+
+        var rnd: UInt64 = 0
         arc4random_buf(&rnd, sizeofValue(rnd))
-        
+
         let color = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: CGFloat(drand48()))
-        
+
         return LocalData(id: rnd, color: color)
     }
 }
@@ -77,7 +77,7 @@ extension ViewController: PageableArrayDelegate {
         for _ in 0..<pageSize {
             data.append(genDataElement())
         }
-        
+
         let pageNumber = range.startIndex / pageSize
         let page = Pageable(page: pageNumber, pageSize: pageSize)
         array.updatePage(page, withElements: data)
@@ -85,15 +85,15 @@ extension ViewController: PageableArrayDelegate {
 }
 
 extension ViewController: UICollectionViewDataSource {
-    
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Int(array.count)
     }
-    
+
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
-    
+
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("identifier", forIndexPath: indexPath) as! Cell
         let data = array[UInt(indexPath.item)]
@@ -104,7 +104,7 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let fullWidth = self.view.bounds.size.width
         let width: CGFloat
@@ -117,7 +117,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         } else {
             width = (fullWidth - 15) / 2.0
         }
-        
+
         return CGSizeMake(floor(width), floor(width))
     }
 }

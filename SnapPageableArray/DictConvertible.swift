@@ -49,6 +49,6 @@ private func validString(s: String?) throws -> String {
 }
 
 public protocol DataRepresentable {
-    
+
     func asData() -> NSData!
 }
