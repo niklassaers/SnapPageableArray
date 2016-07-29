@@ -45,12 +45,9 @@ public struct PageableArray<T: DTOProtocol> {
             }
 
             var didReplace = false
-            var i = 0
-            for oldElement in self.elements {
-                defer { i += 1 }
+            for i in 0..<self.elements.count {
 
-                if let oldElement_ = oldElement.element,
-                   let oldElementId = oldElement_.id where
+                if let oldElementId = self.elements[i].element?.id where
                    newElementId == oldElementId {
                         let updatedElement = ElementWithState(element: newElement, state: .Available)
                         self.elements[i] = updatedElement
