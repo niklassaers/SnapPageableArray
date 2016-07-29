@@ -29,7 +29,7 @@ public struct PageableArray<T: DTOProtocol> {
     mutating private func markElementsInRangeAsRequested(range: Range<UInt>) {
         let timestamp = NSDate().timeIntervalSince1970
         for i in range where i < UInt(self.elements.count) {
-            var updatedElement = self.elements[Int(i)]
+            let updatedElement = self.elements[Int(i)]
             updatedElement.state = .Requested(timestamp: timestamp)
             self.elements[Int(i)] = updatedElement
         }
@@ -49,9 +49,10 @@ public struct PageableArray<T: DTOProtocol> {
             for oldElement in self.elements {
                 defer { i += 1 }
 
-                if let oldElementId = oldElement.element?.id {
-                    if newElementId == oldElementId {
-                        var updatedElement = oldElement
+                if let oldElement_ = oldElement.element,
+                   let oldElementId = oldElement_.id where
+                   newElementId == oldElementId {
+                        let updatedElement = oldElement
                         updatedElement.element = newElement
                         updatedElement.state = .Available
                         self.elements[i] = updatedElement
@@ -59,7 +60,6 @@ public struct PageableArray<T: DTOProtocol> {
 
                         break
                     }
-                }
             }
 
             if didReplace == false {
@@ -112,7 +112,7 @@ public struct PageableArray<T: DTOProtocol> {
             case .Unavailable:
                 continue
             default:
-                var newElement = oldElement
+                let newElement = oldElement
                 newElement.state = .Unavailable
                 elements[i] = newElement
             }

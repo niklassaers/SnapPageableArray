@@ -1,4 +1,4 @@
-enum DTOState {
+public enum DTOState {
     case Unavailable
     case Requested(timestamp: NSTimeInterval) // times out after 5 seconds
     case Available
