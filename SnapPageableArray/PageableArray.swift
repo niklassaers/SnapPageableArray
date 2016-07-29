@@ -52,9 +52,7 @@ public struct PageableArray<T: DTOProtocol> {
                 if let oldElement_ = oldElement.element,
                    let oldElementId = oldElement_.id where
                    newElementId == oldElementId {
-                        let updatedElement = oldElement
-                        updatedElement.element = newElement
-                        updatedElement.state = .Available
+                        let updatedElement = ElementWithState(element: newElement, state: .Available)
                         self.elements[i] = updatedElement
                         didReplace = true
 
@@ -98,8 +96,8 @@ public struct PageableArray<T: DTOProtocol> {
 
         if start < end {
             for i in start..<end {
-                self.elements[Int(i)].element = elements[Int(i - start)]
-                self.elements[Int(i)].state = .Available
+                let updatedElement = ElementWithState(element: elements[Int(i - start)], state: .Available)
+                self.elements[Int(i)] = updatedElement
             }
         }
 
