@@ -29,9 +29,7 @@ public struct PageableArray<T: DTOProtocol> {
     mutating private func markElementsInRangeAsRequested(range: Range<UInt>) {
         let timestamp = NSDate().timeIntervalSince1970
         for i in range where i < UInt(self.elements.count) {
-            let updatedElement = self.elements[Int(i)]
-            updatedElement.state = .Requested(timestamp: timestamp)
-            self.elements[Int(i)] = updatedElement
+            self.elements[Int(i)].state = .Requested(timestamp: timestamp)
         }
     }
 
@@ -47,14 +45,14 @@ public struct PageableArray<T: DTOProtocol> {
             var didReplace = false
             for i in 0..<self.elements.count {
 
-                if let oldElementId = self.elements[i].element?.id where
+                if let oldElementId = self.elements[i].id where
                    newElementId == oldElementId {
-                        let updatedElement = ElementWithState(element: newElement, state: .Available)
-                        self.elements[i] = updatedElement
-                        didReplace = true
+                    self.elements[i].element = newElement
+                    self.elements[i].state = .Available
+                    didReplace = true
 
-                        break
-                    }
+                    break
+                }
             }
 
             if didReplace == false {
@@ -93,8 +91,8 @@ public struct PageableArray<T: DTOProtocol> {
 
         if start < end {
             for i in start..<end {
-                let updatedElement = ElementWithState(element: elements[Int(i - start)], state: .Available)
-                self.elements[Int(i)] = updatedElement
+                self.elements[Int(i)].element = elements[Int(i - start)]
+                self.elements[Int(i)].state = .Available
             }
         }
 
@@ -107,9 +105,7 @@ public struct PageableArray<T: DTOProtocol> {
             case .Unavailable:
                 continue
             default:
-                let newElement = oldElement
-                newElement.state = .Unavailable
-                elements[i] = newElement
+                elements[i].state = .Unavailable
             }
         }
     }
@@ -146,16 +142,14 @@ public struct PageableArray<T: DTOProtocol> {
                 return
             } else {
                 let oldElement = self.elements[Int(index)]
-                let newElement: ElementWithState<T>
                 switch(oldElement.state) {
                 case .Unavailable:
-                    newElement = ElementWithState<T>(element: newValue, state: .Available)
+                    self.elements[Int(index)].element = newValue
+                    self.elements[Int(index)].state = .Available
                 default:
-                    newElement = ElementWithState<T>(element: newValue, state: oldElement.state)
+                    self.elements[Int(index)].element = newValue
 
                 }
-                self.elements[Int(index)] = newElement
-
             }
         }
     }

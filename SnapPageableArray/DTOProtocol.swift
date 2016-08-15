@@ -1,6 +1,5 @@
 public protocol DTOProtocol: CacheableDTO {
     var id: UInt64? { get }
-
 }
 
 extension DTOProtocol {
