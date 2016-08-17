@@ -1,36 +1,52 @@
-//
-//  SnapPageableArrayTests.swift
-//  SnapPageableArrayTests
-//
-//  Created by Niklas Saers on 26/07/16.
-//  Copyright © 2016 Snapsale AS. All rights reserved.
-//
-
 import XCTest
-@testable import SnapPageableArray
+import Foundation
+import SnapPageableArray
 
 class SnapPageableArrayTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    private func createArrayWithSize(size: Int, pageSize: Int) -> PageableArray<TestElement> {
+        var array = PageableArray<TestElement>(capacity: UInt(size), pageSize: UInt(pageSize))
+        for i in 0..<size {
+            array[UInt(i)] = TestElement(id: i, data: i)
+        }
+        
+        return array
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
+    func testInsertElements() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        for i in 0..<size {
+            let element = array[UInt(i)]
+            XCTAssertNotNil(element)
+            XCTAssertEqual(i, element!.data)
         }
     }
-
+    
+    func testUpdateElements() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        
+        let id = 3
+        let data = 30
+        let updatedElements = [TestElement(id: id, data: data)]
+        array.updateElements(updatedElements)
+        
+        for i in 0..<size {
+            let element = array[UInt(i)]
+            if let element = element where element.id == UInt64(id) {
+                XCTAssertEqual(data, element.data)
+            }
+        }
+    }
 }
