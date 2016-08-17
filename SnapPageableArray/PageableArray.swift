@@ -134,13 +134,17 @@ public struct PageableArray<T: DTOProtocol> {
         self.elements = newElements
     }
     
-    mutating public func updateElements(updatedElements: [T]) {
+    mutating public func updateElements(updatedElements: [T]) -> [UInt] {
+        var array = [UInt]()
         for element in updatedElements {
             if let id = element.id,
                let index = mapIdToIndex(id) {
                 elements[Int(index)].element = element
+                array.append(index)
             }
         }
+        
+        return array
     }
     
     private func mapIdToIndex(id: UInt64) -> UInt? {

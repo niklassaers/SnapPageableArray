@@ -32,21 +32,41 @@ class SnapPageableArrayTests: XCTestCase {
         }
     }
     
-    func testUpdateElements() {
+    func testUpdateElementsShouldUpdateElement() {
         let size = 10
         let pageSize = 5
         var array = createArrayWithSize(size, pageSize: pageSize)
         
-        let id = 3
-        let data = 30
-        let updatedElements = [TestElement(id: id, data: data)]
+        let ids = [2, 3]
+        
+        var updatedElements = [TestElement]()
+        for id in ids {
+            updatedElements.append(TestElement(id: id, data: id * 10))
+        }
         array.updateElements(updatedElements)
         
-        for i in 0..<size {
-            let element = array[UInt(i)]
-            if let element = element where element.id == UInt64(id) {
-                XCTAssertEqual(data, element.data)
-            }
+        for id in ids {
+            let element = array[UInt(id)]
+            XCTAssertNotNil(element)
+            XCTAssertEqual(id * 10, element!.data)
+        }
+    }
+    
+    func testUpdateElementsShouldReturnUpdatedIndexes() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        
+        let ids = [2, 3]
+        
+        var updatedElements = [TestElement]()
+        for id in ids {
+            updatedElements.append(TestElement(id: id, data: id * 10))
+        }
+        let updated = array.updateElements(updatedElements)
+
+        for id in ids {
+            XCTAssertTrue(updated.contains(UInt(id)))
         }
     }
 }

@@ -16,7 +16,7 @@ public protocol PageableArrayProtocol {
     mutating func resizeTo(newSize: UInt)
     mutating func markAllItemsAsNeedToReload()
     mutating func removeElementAtIndex(index: UInt)
-    mutating func updateElements(elements: [Element])
+    mutating func updateElements(elements: [Element]) -> [UInt]
 
     subscript(index: UInt) -> Element? { mutating get }
     func hasElementAtIndex(index: UInt) -> Bool
