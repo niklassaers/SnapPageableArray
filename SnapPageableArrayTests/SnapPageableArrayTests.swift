@@ -69,4 +69,18 @@ class SnapPageableArrayTests: XCTestCase {
             XCTAssertTrue(updated.contains(UInt(id)))
         }
     }
+    
+    func testRemovedElementShouldNotBeUpdated() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        
+        let index = 3
+        array.removeElementAtIndex(UInt(index))
+        
+        let updatedElements = [TestElement(id: index, data: 3)]
+        
+        let updated = array.updateElements(updatedElements)
+        XCTAssertEqual(0, updated.count)
+    }
 }
