@@ -127,6 +127,9 @@ public struct PageableArray<T: DTOProtocol> {
         for i in 0..<newSize {
             if i < oldSize {
                 newElements.append(self.elements[Int(i)])
+                if let id = self.elements[Int(i)].id {
+                    indexes[id] = i
+                }
             } else {
                 newElements.append(ElementWithState(element: nil, state: .Unavailable))
             }

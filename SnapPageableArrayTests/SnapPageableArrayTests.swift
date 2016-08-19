@@ -78,9 +78,23 @@ class SnapPageableArrayTests: XCTestCase {
         let index = 3
         array.removeElementAtIndex(UInt(index))
         
-        let updatedElements = [TestElement(id: index, data: 3)]
+        let updatedElements = [TestElement(id: index, data: index)]
         
         let updated = array.updateElements(updatedElements)
         XCTAssertEqual(0, updated.count)
+    }
+    
+    func testResizeShouldUpdateIndexes() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        
+        let index = 9
+        array.removeElementAtIndex(UInt(3))
+        
+        let updatedElements = [TestElement(id: index, data: index)]
+        
+        let updated = array.updateElements(updatedElements)
+        XCTAssertEqual(1, updated.count)
     }
 }
