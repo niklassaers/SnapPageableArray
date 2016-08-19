@@ -141,7 +141,7 @@ public struct PageableArray<T: DTOProtocol> {
         var array = [UInt]()
         for element in updatedElements {
             if let id = element.id,
-               let index = mapIdToIndex(id) {
+               let index = mapIdToIndex(id) where hasElementAtIndex(index) {
                 elements[Int(index)].element = element
                 array.append(index)
             }
