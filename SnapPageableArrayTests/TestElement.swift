@@ -17,3 +17,9 @@ extension TestElement: DTOProtocol {
         }
     }
 }
+
+extension TestElement: CustomStringConvertible {
+    var description: String {
+        return "Id: \(id), data: \(data)"
+    }
+}

@@ -1,6 +1,6 @@
 import Foundation
 
-final class ElementWithState<T: DTOProtocol> {
+class ElementWithState<T: DTOProtocol> {
     var state: DTOState
     
     var element: T? {
@@ -14,5 +14,11 @@ final class ElementWithState<T: DTOProtocol> {
     init(element: T?, state: DTOState) {
         self.element = element
         self.state = state
+    }
+}
+
+extension ElementWithState: CustomStringConvertible {
+    var description: String {
+        return "Id: \(id), status: \(state)"
     }
 }

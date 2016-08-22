@@ -1,0 +1,55 @@
+import XCTest
+import SnapPageableArray
+
+class InsertTests: PageableArrayTests {
+    func testInsertElementsWithSubscript() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        for i in 0..<size {
+            let element = array[UInt(i)]
+            XCTAssertNotNil(element)
+            XCTAssertEqual(i, element!.data)
+        }
+    }
+    
+    func testAppendElementShouldIncreaseCount() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        array.appendElement(TestElement(id: 11, data: 11))
+        
+        XCTAssertEqual(UInt(size + 1), array.count)
+    }
+    
+    func testAppendElementShouldAppendElelemt() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        let data = 100
+        
+        array.appendElement(TestElement(id: data, data: data))
+        
+        let element = array[UInt(array.count - 1)]
+        XCTAssertNotNil(element)
+        XCTAssertEqual(data, element!.data)
+    }
+    
+    func testTopUpShouldInsertNewElementsFirst() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        
+        var newElements = [TestElement]()
+        for i in size..<size * 2 {
+            newElements.append(TestElement(id: i, data: i))
+        }
+        array.topUpWithElements(newElements)
+        
+        for i in 0..<size {
+            let element = array[UInt(i)]
+            XCTAssertNotNil(element)
+            XCTAssertEqual(i + size, element!.data)
+        }
+    }
+}

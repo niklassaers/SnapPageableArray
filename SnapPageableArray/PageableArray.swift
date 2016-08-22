@@ -255,3 +255,18 @@ public struct PageableArray<T: DTOProtocol> {
 }
 
 extension PageableArray : PageableArrayProtocol { }
+
+extension PageableArray : CustomStringConvertible {
+    public var description: String {
+        var str = ""
+        for i in 0..<count {
+            let element = elements[Int(i)]
+            str = "\(str)Index: \(i), \(element.description) \n"
+            if element.element == nil {
+                break
+            }
+        }
+        
+        return str
+    }
+}

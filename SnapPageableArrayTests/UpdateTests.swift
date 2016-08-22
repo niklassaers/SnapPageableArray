@@ -2,7 +2,7 @@ import XCTest
 import Foundation
 import SnapPageableArray
 
-class SnapPageableArrayTests: XCTestCase {
+class UpdateTests: PageableArrayTests {
 
     override func setUp() {
         super.setUp()
@@ -10,26 +10,6 @@ class SnapPageableArrayTests: XCTestCase {
 
     override func tearDown() {
         super.tearDown()
-    }
-    
-    private func createArrayWithSize(size: Int, pageSize: Int) -> PageableArray<TestElement> {
-        var array = PageableArray<TestElement>(capacity: UInt(size), pageSize: UInt(pageSize))
-        for i in 0..<size {
-            array[UInt(i)] = TestElement(id: i, data: i)
-        }
-        
-        return array
-    }
-
-    func testInsertElements() {
-        let size = 10
-        let pageSize = 5
-        var array = createArrayWithSize(size, pageSize: pageSize)
-        for i in 0..<size {
-            let element = array[UInt(i)]
-            XCTAssertNotNil(element)
-            XCTAssertEqual(i, element!.data)
-        }
     }
     
     func testUpdateElementsShouldUpdateElement() {
@@ -96,5 +76,24 @@ class SnapPageableArrayTests: XCTestCase {
         
         let updated = array.updateElements(updatedElements)
         XCTAssertEqual(1, updated.count)
+    }
+    
+    
+    func testTopUpShouldUpdateOldElements() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        
+        var newElements = [TestElement]()
+        for i in 0..<size/2 {
+            newElements.append(TestElement(id: i, data: i * 10))
+        }
+        array.topUpWithElements(newElements)
+        
+        for i in 0..<size/2 {
+            let element = array[UInt(i)]
+            XCTAssertNotNil(element)
+            XCTAssertEqual(i * 10, element!.data)
+        }
     }
 }
