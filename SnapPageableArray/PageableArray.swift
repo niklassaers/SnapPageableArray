@@ -107,7 +107,6 @@ public struct PageableArray<T: DTOProtocol> {
                 self.elements[Int(i)].state = .Available
             }
         }
-
     }
 
     mutating public func markAllItemsAsNeedToReload() {

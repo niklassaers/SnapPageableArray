@@ -96,4 +96,43 @@ class UpdateTests: PageableArrayTests {
             XCTAssertEqual(i * 10, element!.data)
         }
     }
+    
+    func testResizeToShouldResizeArray() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        
+        array.resizeTo(UInt(size * 2))
+        
+        for i in 0..<size {
+            array[UInt(i + size)] = TestElement(id: i + size, data: i + size)
+        }
+        
+        for i in size..<size * 2 {
+            let element = array[UInt(i)]
+            XCTAssertNotNil(element)
+            XCTAssertEqual(i, element!.data)
+        }
+    }
+    
+    func testFetchingReloadedElementShouldTriggerRequest() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        array.delegate = self
+        
+        for i in 0..<size {
+            XCTAssertNotNil(array[UInt(i)])
+        }
+
+        array.markAllItemsAsNeedToReload()
+        
+        for i in 0..<size {
+            let element = array[UInt(i)]
+        }
+        
+        for i in 0..<size {
+            XCTAssertTrue(requestedElements.contains(i))
+        }
+    }
 }

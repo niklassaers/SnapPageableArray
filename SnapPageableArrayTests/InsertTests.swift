@@ -52,4 +52,60 @@ class InsertTests: PageableArrayTests {
             XCTAssertEqual(i + size, element!.data)
         }
     }
+    
+    func testTopUpWithNoNewItemsShouldReturnNoNewItems() {
+        let size = 10
+        let pageSize = 5
+
+        var array = PageableArray<TestElement>(capacity: UInt(size), pageSize: UInt(pageSize))
+        
+        var elements = [TestElement]()
+        for i in 0..<size {
+            let element = TestElement(id: i, data: i)
+            array[UInt(i)] = element
+            elements.append(element)
+        }
+        
+        let result = array.topUpWithElements(elements)
+        XCTAssertEqual(result, UpdateResult.NoNewItems)
+    }
+    
+    func testTopUpWithSomeNewItemsShouldReturnSomeNewItems() {
+        let size = 10
+        let pageSize = 5
+        
+        var array = PageableArray<TestElement>(capacity: UInt(size), pageSize: UInt(pageSize))
+        
+        var elements = [TestElement]()
+        for i in 0..<size {
+            var element = TestElement(id: i, data: i)
+            array[UInt(i)] = element
+            if i < size/2 {
+                element = TestElement(id: i + 10, data: i + 10)
+            }
+            elements.append(element)
+        }
+        
+        let result = array.topUpWithElements(elements)
+        XCTAssertEqual(result, UpdateResult.SomeNewItems(newItems: size/2))
+    }
+    
+    func testTopUpWithAllNewItemsShouldReturnAllNewItems() {
+        let size = 10
+        let pageSize = 5
+        
+        var array = PageableArray<TestElement>(capacity: UInt(size), pageSize: UInt(pageSize))
+        
+        var elements = [TestElement]()
+        for i in 0..<size {
+            var element = TestElement(id: i, data: i)
+            array[UInt(i)] = element
+            
+            element = TestElement(id: i + 10, data: i + 10)
+            elements.append(element)
+        }
+        
+        let result = array.topUpWithElements(elements)
+        XCTAssertEqual(result, UpdateResult.AllNewItems)
+    }
 }
