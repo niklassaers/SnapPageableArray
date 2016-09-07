@@ -135,4 +135,13 @@ class UpdateTests: PageableArrayTests {
             XCTAssertTrue(requestedElements.contains(i))
         }
     }
+    
+    func testFetchPageOutOfRangeShouldNotCrash() {
+        let size = 10
+        let pageSize = 5
+        var array = createArrayWithSize(size, pageSize: pageSize)
+        
+        let elements = [TestElement(id: 0, data: 0)]
+        array.updatePage(Pageable(page: 2, pageSize: UInt(pageSize)), withElements: elements)
+    }
 }

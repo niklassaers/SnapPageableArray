@@ -86,25 +86,25 @@ public struct PageableArray<T: DTOProtocol> {
     mutating public func updatePage(page: Pageable, withElements elements: [T], offset: UInt = 0) {
         let start = page.startItemIndex + offset
         let end = start + UInt(elements.count)
+        
         if start == end && elements.count == 0 {
             return
         }
 
-        assert(start <= UInt(self.elements.count) + offset)
-        assert(end <= UInt(self.elements.count) + offset)
-
         if start < end {
             for i in start..<end {
-                if self.elements[Int(i)].id != elements[Int(i - start)].id {
-                    if let oldId = self.elements[Int(i)].id {
-                        indexes[oldId] = nil
+                if i < count {
+                    if self.elements[Int(i)].id != elements[Int(i - start)].id {
+                        if let oldId = self.elements[Int(i)].id {
+                            indexes[oldId] = nil
+                        }
+                        if let newId = elements[Int(i - start)].id {
+                            indexes[newId] = i
+                        }
                     }
-                    if let newId = elements[Int(i - start)].id {
-                        indexes[newId] = i
-                    }
+                    self.elements[Int(i)].element = elements[Int(i - start)]
+                    self.elements[Int(i)].state = .Available
                 }
-                self.elements[Int(i)].element = elements[Int(i - start)]
-                self.elements[Int(i)].state = .Available
             }
         }
     }
