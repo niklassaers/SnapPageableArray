@@ -10,19 +10,19 @@ public protocol PageableArrayProtocol {
     var numberOfItemsAheadOfLastToTriggerLoadMore: UInt { get set }
     weak var delegate: PageableArrayDelegate? { get set }
 
-    mutating func topUpWithElements(elements: [Element]) -> UpdateResult
-    mutating func appendElement(element: Element)
-    mutating func updatePage(page: Pageable, withElements: [Element], offset: UInt)
-    mutating func resizeTo(newSize: UInt)
+    mutating func topUpWithElements(_ elements: [Element]) -> UpdateResult
+    mutating func appendElement(_ element: Element)
+    mutating func updatePage(_ page: Pageable, withElements: [Element], offset: UInt)
+    mutating func resizeTo(_ newSize: UInt)
     mutating func markAllItemsAsNeedToReload()
-    mutating func removeElementAtIndex(index: UInt)
-    mutating func updateElements(elements: [Element]) -> [UInt]
+    mutating func removeElementAtIndex(_ index: UInt)
+    mutating func updateElements(_ elements: [Element]) -> [UInt]
 
     subscript(index: UInt) -> Element? { mutating get }
-    func hasElementAtIndex(index: UInt) -> Bool
+    func hasElementAtIndex(_ index: UInt) -> Bool
 
     func persist() -> [UInt64?]
 
 
-    mutating func removeElementsMatching(matcher: Element -> (Bool)) -> UInt
+    mutating func removeElementsMatching(_ matcher: (Element) -> (Bool)) -> UInt
 }

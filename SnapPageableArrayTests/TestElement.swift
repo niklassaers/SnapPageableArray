@@ -1,7 +1,7 @@
 @testable import SnapPageableArray
 
 class TestElement {
-    private var _id: Int
+    fileprivate var _id: Int
     var data: Int
     
     init(id: Int, data: Int) {

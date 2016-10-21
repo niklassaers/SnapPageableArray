@@ -29,17 +29,17 @@ internal func genOptInt() -> Int? {
     }
 }
 
-internal func genOptImageUrl() -> NSURL? {
+internal func genOptImageUrl() -> URL? {
     let v = UInt.random()
     if v % 5 == 0 {
         return nil
     } else {
         switch(v) {
-        case 0:  return NSURL(string: "https://www.freebsd.org/gifs/daemon-phk.png")
-        case 1:  return NSURL(string: "https://www.freebsd.org/gifs/daemon_hammer.jpg")
-        case 2:  return NSURL(string: "https://www.freebsd.org/gifs/power.jpg")
-        case 3:  return NSURL(string: "https://www.freebsd.org/gifs/releases.jpg")
-        default: return NSURL(string: "https://www.freebsd.org/gifs/doc.jpg")
+        case 0:  return URL(string: "https://www.freebsd.org/gifs/daemon-phk.png")
+        case 1:  return URL(string: "https://www.freebsd.org/gifs/daemon_hammer.jpg")
+        case 2:  return URL(string: "https://www.freebsd.org/gifs/power.jpg")
+        case 3:  return URL(string: "https://www.freebsd.org/gifs/releases.jpg")
+        default: return URL(string: "https://www.freebsd.org/gifs/doc.jpg")
         }
     }
 }
@@ -58,7 +58,7 @@ internal func genDouble() -> Double {
     return Double.random()
 }
 
-internal func genString(len: Int) -> String {
+internal func genString(_ len: Int) -> String {
 
     let letters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789你好吗😀🐱💥∆𝚹∌⌘"
 
@@ -66,7 +66,7 @@ internal func genString(len: Int) -> String {
 
     for _ in 0..<len {
         let rand = Int.random(lower: 0, upper: letters.length)
-        randomString.appendFormat("%C", letters.characterAtIndex(rand))
+        randomString.appendFormat("%C", letters.character(at: rand))
     }
 
     return randomString as String

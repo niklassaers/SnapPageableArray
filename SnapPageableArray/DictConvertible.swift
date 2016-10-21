@@ -1,10 +1,10 @@
 import Foundation
 
-public enum DictConvertibleError: ErrorType {
-    case InvalidDict
-    case InvalidNSData
-    case RequiredValueMissing
-    case InvalidType
+public enum DictConvertibleError: Error {
+    case invalidDict
+    case invalidNSData
+    case requiredValueMissing
+    case invalidType
 }
 
 public protocol DictConvertible: DataRepresentable {
@@ -16,12 +16,12 @@ public protocol DictConvertible: DataRepresentable {
 
 public extension DictConvertible {
 
-    public func asData() -> NSData! {
+    public func asData() -> Data! {
         let dict = self.toDict()
         if let nsDict = dict.asNSDictionary() {
-            return NSKeyedArchiver.archivedDataWithRootObject(nsDict)
+            return NSKeyedArchiver.archivedData(withRootObject: nsDict)
         } else {
-            return NSData()
+            return Data()
         }
     }
 
@@ -41,14 +41,14 @@ public protocol Verifiable {
     func isValid() -> Bool
 }
 
-private func validString(s: String?) throws -> String {
+private func validString(_ s: String?) throws -> String {
     if let s = s {
         return s
     }
-    throw DictConvertibleError.RequiredValueMissing
+    throw DictConvertibleError.requiredValueMissing
 }
 
 public protocol DataRepresentable {
 
-    func asData() -> NSData!
+    func asData() -> Data!
 }

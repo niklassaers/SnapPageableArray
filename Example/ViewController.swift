@@ -6,7 +6,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView?
     static let kPageSize: UInt = 40
     var array = PageableArray<LocalData>(capacity: 960, pageSize: ViewController.kPageSize)
-    var genDataQueue: dispatch_queue_t = dispatch_queue_create("genDataQueue", DISPATCH_QUEUE_CONCURRENT)
+    var genDataQueue: DispatchQueue = DispatchQueue(label: "genDataQueue", attributes: DispatchQueue.Attributes.concurrent)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +24,16 @@ class ViewController: UIViewController {
 
     func topUp() {
 
-        dispatch_async(genDataQueue) {
+        genDataQueue.async {
             
             var data = [LocalData]()
             for _ in 0..<ViewController.kPageSize {
                 data.append(self.genDataElement())
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 
-                self.array.topUpWithElements(data)
+                let _ = self.array.topUpWithElements(data)
                 self.collectionView?.reloadData()
                 
                 self.delay(5.0) {
@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         }
         
         let end = start + ViewController.kPageSize
-        let range: Range<UInt> = start..<end
+        let range: CountableRange<UInt> = start..<end
         
         loadContentForRange(range, pageSize: ViewController.kPageSize)
         collectionView?.reloadData()
@@ -61,9 +61,9 @@ class ViewController: UIViewController {
         }
     }
 
-    func delay(secs: Double, f: () -> ()) {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(secs * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
+    func delay(_ secs: Double, f: @escaping () -> ()) {
+        let delayTime = DispatchTime.now() + Double(Int64(secs * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: delayTime) {
             f()
         }
     }
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
     func genDataElement() -> LocalData {
 
         var rnd: UInt64 = 0
-        arc4random_buf(&rnd, sizeofValue(rnd))
+        arc4random_buf(&rnd, MemoryLayout.size(ofValue: rnd))
 
         let color = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: CGFloat(drand48()))
 
@@ -80,18 +80,18 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: PageableArrayDelegate {
-    func loadContentForRange(range: Range<UInt>, pageSize: UInt) {
+    func loadContentForRange(_ range: CountableRange<UInt>, pageSize: UInt) {
         
-        dispatch_async(genDataQueue) {
+        genDataQueue.async {
             
             var data = [LocalData]()
             for _ in 0..<pageSize {
                 data.append(self.genDataElement())
             }
             
-            let pageNumber = range.startIndex / pageSize
+            let pageNumber = range.lowerBound / pageSize
             let page = Pageable(page: pageNumber, pageSize: pageSize)
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 
                 self.array.updatePage(page, withElements: data)
             }
@@ -101,18 +101,18 @@ extension ViewController: PageableArrayDelegate {
 
 extension ViewController: UICollectionViewDataSource {
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Int(array.count)
     }
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("identifier", forIndexPath: indexPath) as! Cell
-        let data = array[UInt(indexPath.item)]
-        cell.backgroundColor = data?.color ?? UIColor.clearColor()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "identifier", for: indexPath) as! Cell
+        let data = array[UInt((indexPath as NSIndexPath).item)]
+        cell.backgroundColor = data?.color ?? UIColor.clear
         cell.setText(data?.cacheId ?? "N/A")
         return cell
     }
@@ -120,7 +120,7 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let fullWidth = self.view.bounds.size.width
         let width: CGFloat
         if fullWidth >= 1024 {
@@ -133,6 +133,6 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
             width = (fullWidth - 15) / 2.0
         }
 
-        return CGSizeMake(floor(width), floor(width))
+        return CGSize(width: floor(width), height: floor(width))
     }
 }

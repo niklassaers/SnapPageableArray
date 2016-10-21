@@ -33,7 +33,7 @@ extension Pageable : DictConvertible {
     public init(dict: [String : Any]) throws {
         guard let page_ = dict["page"] as? UInt,
             let pageSize_ = dict["pageSize"] as? UInt else {
-                throw DictConvertibleError.InvalidDict
+                throw DictConvertibleError.invalidDict
         }
 
         page = page_

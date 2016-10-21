@@ -1,22 +1,22 @@
 import Foundation
 
-extension String: CustomStringConvertible {
+/*extension String: CustomStringConvertible {
     public var description: String { return self }
-}
+}*/
 
 public extension Dictionary where
     Key : CustomStringConvertible,
     Value : AnyObject {
 
-    mutating func set(key: Key, _ value: Value?) {
+    mutating func set(_ key: Key, _ value: Value?) {
         if let value = value {
             self[key] = value
         }
     }
 
-    mutating func set(key: Key, _ value: UInt64?) {
+    mutating func set(_ key: Key, _ value: UInt64?) {
         if let value = value {
-            let v =  NSNumber(unsignedLongLong: value) as! Value
+            let v =  NSNumber(value: value as UInt64) as! Value
             self[key] = v
         }
     }
@@ -54,7 +54,7 @@ public extension NSDictionary {
 }
 
 public extension Dictionary where
-    Key : StringLiteralConvertible,
+    Key : ExpressibleByStringLiteral,
     Value : Any {
 
 
@@ -79,7 +79,7 @@ public extension Dictionary where
             } else if let value = value as? Bool {
                 newDict[key] = Bool(value) as NSNumber
             } else if let value = value as? UInt64 {
-                newDict[key] = NSNumber(unsignedLongLong: value) //  Int(value)
+                newDict[key] = NSNumber(value: value as UInt64) //  Int(value)
             } else if let value = value as? UInt {
                 newDict[key] = UInt(value) as NSNumber
             } else if let value = value as? Int {
@@ -100,11 +100,11 @@ public extension Dictionary where
                 }
 
             } else if let value = value as? [[String:Any]] {
-                newDict[key] = value.flatMap { $0.asNSDictionary() }
+                newDict[key] = value.flatMap { $0.asNSDictionary() } as AnyObject
             } else if "\(value)" == "nil" { // Is there a better way to test Value for nil?
                 // Skip nil values, they don't belong in an NSDictionary
-            } else if let value = value as? NSData {
-                newDict[key] = value
+            } else if let value = value as? Data {
+                newDict[key] = value as AnyObject?
             } else {
                 print("Error converting <\(key): \(value)> to NSDictionary")
             }
@@ -113,7 +113,7 @@ public extension Dictionary where
         return newDict as NSDictionary
     }
 
-    private func handleDictValue(value: [String:Any]) -> [String:NSObject] {
+    fileprivate func handleDictValue(_ value: [String:Any]) -> [String:NSObject] {
         var value = value
 
         let crashingDicts = ["device"]
@@ -126,15 +126,15 @@ public extension Dictionary where
                 d[key] = v
             } else if value[key] == nil {
 
-            } else if let v = value[key] as? [String:Any] where !crashingDicts.contains(key) {
+            } else if let v = value[key] as? [String:Any] , !crashingDicts.contains(key) {
 
                 d[key] = v.asNSDictionary()
 
-            } else if let v = value[key] as? [String:Any] where allowedDicts.contains(key) {
+            } else if let v = value[key] as? [String:Any] , allowedDicts.contains(key) {
 
                 d[key] = v.asNSDictionary()
 
-            } else if let v = value[key] as? [[String:Any]] where !crashingDicts.contains(key) {
+            } else if let v = value[key] as? [[String:Any]] , !crashingDicts.contains(key) {
 
                 let ar = NSMutableArray(capacity: v.count)
                 for i in 0..<v.count {
@@ -146,7 +146,7 @@ public extension Dictionary where
                 }
                 d[key] = ar
 
-            } else if let v = value[key] as? [[String:Any]] where allowedDicts.contains(key) {
+            } else if let v = value[key] as? [[String:Any]] , allowedDicts.contains(key) {
 
                 let ar = NSMutableArray(capacity: v.count)
                 for i in 0..<v.count {
@@ -161,7 +161,7 @@ public extension Dictionary where
             } else if let v_ = value[key] as? UInt64?,
                 let v = v_ {
 
-                d[key] = NSNumber(unsignedLongLong: v)
+                d[key] = NSNumber(value: v as UInt64)
 
             } else {
                 let tokensThatAreOKToGetHere = ["pushToken", "code", "symbol"]

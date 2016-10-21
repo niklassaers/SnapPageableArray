@@ -11,7 +11,7 @@ extension DTOProtocol {
         return nil
     }
 
-    public static func cacheId(id id: UInt64) -> String {
+    public static func cacheId(id: UInt64) -> String {
         let cacheId = "\(Self.self)-\(id)"
         return cacheId
     }

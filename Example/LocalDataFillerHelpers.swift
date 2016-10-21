@@ -17,12 +17,12 @@ struct TypeA {
 
 struct TypeB: DTOProtocol {
     let id: UInt64?
-    var B: NSURL?
+    var B: URL?
     var C: UIImage?
 
     init() {
         id = genId()
-        B = genOptImageUrl()
+        B = genOptImageUrl() as URL?
         C = nil
     }
 }
@@ -35,9 +35,9 @@ struct TypeC {
     var D: Bool
     let E: Bool?
     let F: Int?
-    let G: NSURL?
+    let G: URL?
     var H: UIImage? = nil
-    private(set) var I: TypeI? = nil
+    fileprivate(set) var I: TypeI? = nil
 
     init() {
         A = genId()
@@ -46,7 +46,7 @@ struct TypeC {
         D = genBool()
         E = genOptBool()
         F = genOptInt()
-        G = genOptImageUrl()
+        G = genOptImageUrl() as URL?
         H = nil
         I = TypeI()
     }
@@ -54,16 +54,16 @@ struct TypeC {
 
 struct TypeD {
 
-    let A: NSDate
-    let B: NSDate
-    let C: NSDate
-    let D: NSDate
+    let A: Date
+    let B: Date
+    let C: Date
+    let D: Date
 
     init() {
-        A = NSDate(timeIntervalSinceNow: genDouble())
-        B = NSDate(timeIntervalSinceNow: genDouble())
-        C = NSDate(timeIntervalSinceNow: genDouble())
-        D = NSDate(timeIntervalSinceNow: genDouble())
+        A = Date(timeIntervalSinceNow: genDouble())
+        B = Date(timeIntervalSinceNow: genDouble())
+        C = Date(timeIntervalSinceNow: genDouble())
+        D = Date(timeIntervalSinceNow: genDouble())
     }
 }
 
@@ -106,7 +106,7 @@ struct TypeG {
 
     init() {
         A = TypeE()
-        B = EnumA(rawValue: Int.random(lower: 0, upper: 5)) ?? EnumA.A
+        B = EnumA(rawValue: Int.random(lower: 0, upper: 5)) ?? EnumA.a
         C = UInt.random()
         D = UInt.random()
         E = UInt64.random()
@@ -117,12 +117,12 @@ struct TypeG {
 }
 
 enum EnumA: Int {
-    case A = 0
-    case B = 1
-    case C = 2
-    case D = 3
-    case E = 4
-    case F = 5
+    case a = 0
+    case b = 1
+    case c = 2
+    case d = 3
+    case e = 4
+    case f = 5
 }
 
 struct TypeH {
@@ -147,7 +147,7 @@ struct TypeI: DTOProtocol {
     var E: String
     var F: TypeB?
     var G: Bool
-    let H: NSDate
+    let H: Date
     let I: EnumB
     let J: String
     var K: Bool
@@ -175,7 +175,7 @@ struct TypeI: DTOProtocol {
         E = genString(Int.random(lower: 3, upper: 19))
         F = TypeB()
         G = genBool()
-        H = NSDate(timeIntervalSinceNow: genDouble())
+        H = Date(timeIntervalSinceNow: genDouble())
         I = EnumB.random()
         J = genString(Int.random(lower: 3, upper: 19))
         K = genBool()
@@ -223,14 +223,14 @@ struct TypeJ {
 
     init() {
         A = genString(Int.random(lower: 3, upper: 19))
-        B = EnumC(rawValue: Int.random(lower: 0, upper: 2)) ?? EnumC.A
+        B = EnumC(rawValue: Int.random(lower: 0, upper: 2)) ?? EnumC.a
     }
 }
 
 public enum EnumC: Int {
-    case A = 0
-    case B
-    case C
+    case a = 0
+    case b
+    case c
 }
 
 

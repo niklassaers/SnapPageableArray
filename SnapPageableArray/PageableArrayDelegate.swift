@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol PageableArrayDelegate : class {
-    func loadContentForRange(range: Range<UInt>, pageSize: UInt)
+    func loadContentForRange(_ range: CountableRange<UInt>, pageSize: UInt)
 }

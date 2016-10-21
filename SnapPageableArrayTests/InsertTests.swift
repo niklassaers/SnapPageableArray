@@ -67,7 +67,7 @@ class InsertTests: PageableArrayTests {
         }
         
         let result = array.topUpWithElements(elements)
-        XCTAssertEqual(result, UpdateResult.NoNewItems)
+        XCTAssertEqual(result, UpdateResult.noNewItems)
     }
     
     func testTopUpWithSomeNewItemsShouldReturnSomeNewItems() {
@@ -87,7 +87,7 @@ class InsertTests: PageableArrayTests {
         }
         
         let result = array.topUpWithElements(elements)
-        XCTAssertEqual(result, UpdateResult.SomeNewItems(newItems: size/2))
+        XCTAssertEqual(result, UpdateResult.someNewItems(newItems: size/2))
     }
     
     func testTopUpWithAllNewItemsShouldReturnAllNewItems() {
@@ -106,6 +106,6 @@ class InsertTests: PageableArrayTests {
         }
         
         let result = array.topUpWithElements(elements)
-        XCTAssertEqual(result, UpdateResult.AllNewItems)
+        XCTAssertEqual(result, UpdateResult.allNewItems)
     }
 }

@@ -1,25 +1,25 @@
 public enum DTOState {
-    case Unavailable
-    case Requested(timestamp: NSTimeInterval) // times out after 5 seconds
-    case Available
+    case unavailable
+    case requested(timestamp: TimeInterval) // times out after 5 seconds
+    case available
 
     func isAvailable() -> Bool {
         switch(self) {
-        case .Available: return true
+        case .available: return true
         default: return false
         }
     }
 
     func isUnavailable() -> Bool {
         switch(self) {
-        case .Unavailable: return true
+        case .unavailable: return true
         default: return false
         }
     }
 
-    func hasTimedOut(timestamp newTimeStamp: NSTimeInterval) -> Bool {
+    func hasTimedOut(timestamp newTimeStamp: TimeInterval) -> Bool {
         switch(self) {
-        case let .Requested(timestamp):
+        case let .requested(timestamp):
             let oldTimeStamp = timestamp
 
             if (newTimeStamp - oldTimeStamp) > 5 {

@@ -4,8 +4,8 @@ public struct PageableArray<T: DTOProtocol> {
     public typealias Element = T
 
 
-    private var elements: [ElementWithState<T>]
-    private var indexes: [UInt64: UInt]
+    fileprivate var elements: [ElementWithState<T>]
+    fileprivate var indexes: [UInt64: UInt]
     public var pageSize: UInt
     public var numberOfItemsAheadOfLastToTriggerLoadMore: UInt
 
@@ -17,7 +17,7 @@ public struct PageableArray<T: DTOProtocol> {
 
         self.elements = [ElementWithState]()
         for _ in 0..<capacity {
-            self.elements.append(ElementWithState(element: nil, state: .Unavailable))
+            self.elements.append(ElementWithState(element: nil, state: .unavailable))
         }
         self.indexes = [UInt64: UInt]()
     }
@@ -31,7 +31,7 @@ public struct PageableArray<T: DTOProtocol> {
 
         var index: UInt = 0
         for item in items {
-            self.elements.append(ElementWithState(element: item, state: .Available))
+            self.elements.append(ElementWithState(element: item, state: .available))
             if let id = item.id {
                 indexes[id] = index
             }
@@ -45,14 +45,14 @@ public struct PageableArray<T: DTOProtocol> {
         }
     }
 
-    mutating private func markElementsInRangeAsRequested(range: Range<UInt>) {
-        let timestamp = NSDate().timeIntervalSince1970
+    mutating fileprivate func markElementsInRangeAsRequested(_ range: CountableRange<UInt>) {
+        let timestamp = Date().timeIntervalSince1970
         for i in range where i < UInt(self.elements.count) {
-            self.elements[Int(i)].state = .Requested(timestamp: timestamp)
+            self.elements[Int(i)].state = .requested(timestamp: timestamp)
         }
     }
 
-    mutating public func topUpWithElements(elements: [T]) -> UpdateResult {
+    mutating public func topUpWithElements(_ elements: [T]) -> UpdateResult {
         var newItems = 0
         var allNewElements = [ElementWithState<T>]()
 
@@ -64,10 +64,10 @@ public struct PageableArray<T: DTOProtocol> {
             var didReplace = false
             for i in 0..<self.elements.count {
 
-                if let oldElementId = self.elements[i].id where
+                if let oldElementId = self.elements[i].id ,
                    newElementId == oldElementId {
                     self.elements[i].element = newElement
-                    self.elements[i].state = .Available
+                    self.elements[i].state = .available
                     didReplace = true
 
                     break
@@ -75,7 +75,7 @@ public struct PageableArray<T: DTOProtocol> {
             }
 
             if didReplace == false {
-                let newElement = ElementWithState(element: newElement, state: .Available)
+                let newElement = ElementWithState(element: newElement, state: .available)
                 allNewElements.append(newElement)
                 newItems += 1
             }
@@ -84,23 +84,23 @@ public struct PageableArray<T: DTOProtocol> {
         self.elements = allNewElements + self.elements
 
         if allNewElements.count == elements.count {
-            return .AllNewItems
+            return .allNewItems
         } else if allNewElements.count == 0 {
-            return .NoNewItems
+            return .noNewItems
         }
 
-        return .SomeNewItems(newItems: newItems)
+        return .someNewItems(newItems: newItems)
     }
 
-    mutating public func appendElement(element: T) {
+    mutating public func appendElement(_ element: T) {
         if let id = element.id {
             indexes[id] = count
         }
-        let newElement = ElementWithState(element: element, state: .Available)
+        let newElement = ElementWithState(element: element, state: .available)
         self.elements.append(newElement)
     }
 
-    mutating public func updatePage(page: Pageable, withElements elements: [T], offset: UInt = 0) {
+    mutating public func updatePage(_ page: Pageable, withElements elements: [T], offset: UInt = 0) {
         let start = page.startItemIndex + offset
         let end = start + UInt(elements.count)
         
@@ -120,7 +120,7 @@ public struct PageableArray<T: DTOProtocol> {
                         }
                     }
                     self.elements[Int(i)].element = elements[Int(i - start)]
-                    self.elements[Int(i)].state = .Available
+                    self.elements[Int(i)].state = .available
                 }
             }
         }
@@ -129,15 +129,15 @@ public struct PageableArray<T: DTOProtocol> {
     mutating public func markAllItemsAsNeedToReload() {
         for i in 0..<Int(count) {
             switch(elements[i].state) {
-            case .Unavailable:
+            case .unavailable:
                 continue
             default:
-                elements[i].state = .Unavailable
+                elements[i].state = .unavailable
             }
         }
     }
 
-    mutating public func resizeTo(newSize: UInt) {
+    mutating public func resizeTo(_ newSize: UInt) {
         var newElements = [ElementWithState<T>]()
         let oldSize = UInt(self.elements.count)
         for i in 0..<newSize {
@@ -147,17 +147,17 @@ public struct PageableArray<T: DTOProtocol> {
                     indexes[id] = i
                 }
             } else {
-                newElements.append(ElementWithState(element: nil, state: .Unavailable))
+                newElements.append(ElementWithState(element: nil, state: .unavailable))
             }
         }
         self.elements = newElements
     }
     
-    mutating public func updateElements(updatedElements: [T]) -> [UInt] {
+    mutating public func updateElements(_ updatedElements: [T]) -> [UInt] {
         var array = [UInt]()
         for element in updatedElements {
             if let id = element.id,
-               let index = mapIdToIndex(id) where hasElementAtIndex(index) {
+               let index = mapIdToIndex(id) , hasElementAtIndex(index) {
                 elements[Int(index)].element = element
                 array.append(index)
             }
@@ -166,7 +166,7 @@ public struct PageableArray<T: DTOProtocol> {
         return array
     }
     
-    private func mapIdToIndex(id: UInt64) -> UInt? {
+    fileprivate func mapIdToIndex(_ id: UInt64) -> UInt? {
         return indexes[id]
     }
 
@@ -198,9 +198,9 @@ public struct PageableArray<T: DTOProtocol> {
                     }
                 }
                 switch(oldElement.state) {
-                case .Unavailable:
+                case .unavailable:
                     self.elements[Int(index)].element = newValue
-                    self.elements[Int(index)].state = .Available
+                    self.elements[Int(index)].state = .available
                 default:
                     self.elements[Int(index)].element = newValue
 
@@ -209,22 +209,22 @@ public struct PageableArray<T: DTOProtocol> {
         }
     }
 
-    public mutating func removeElementAtIndex(index: UInt) {
+    public mutating func removeElementAtIndex(_ index: UInt) {
         if index < count {
             let element = elements[Int(index)]
             if let id = element.id {
                 indexes[id] = nil
             }
         }
-        elements.removeAtIndex(Int(index))
+        elements.remove(at: Int(index))
         resizeTo(UInt(elements.count))
     }
 
-    public func hasElementAtIndex(index: UInt) -> Bool { // Peek, without triggering fetch
+    public func hasElementAtIndex(_ index: UInt) -> Bool { // Peek, without triggering fetch
         if index >= UInt(elements.count) { return false }
         let elementWithState = self.elements[Int(index)]
         switch elementWithState.state {
-        case .Available:
+        case .available:
             return true
         default:
             return false
@@ -232,7 +232,7 @@ public struct PageableArray<T: DTOProtocol> {
         }
     }
 
-    private mutating func willServeItemAtIndex(index: UInt) {
+    fileprivate mutating func willServeItemAtIndex(_ index: UInt) {
         let end = Int(min(self.count, index + numberOfItemsAheadOfLastToTriggerLoadMore)) - 1
         let element = elements[end]
         if element.state.isUnavailable() {
@@ -246,7 +246,7 @@ public struct PageableArray<T: DTOProtocol> {
         return elements.map { return $0.element?.id }
     }
 
-    mutating public func removeElementsMatching(matcher: Element -> (Bool)) -> UInt {
+    mutating public func removeElementsMatching(_ matcher: (Element) -> (Bool)) -> UInt {
 
         var indexes = [UInt]()
         for index in 0..<UInt(elements.count) {
