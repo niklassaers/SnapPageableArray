@@ -21,6 +21,23 @@ public struct PageableArray<T: DTOProtocol> {
         }
         self.indexes = [UInt64: UInt]()
     }
+    
+    public init(items: [T]) {
+        self.pageSize = UInt(items.count)
+        self.numberOfItemsAheadOfLastToTriggerLoadMore = UInt(items.count)
+        
+        self.indexes = [UInt64: UInt]()
+        self.elements = [ElementWithState]()
+
+        var index: UInt = 0
+        for item in items {
+            self.elements.append(ElementWithState(element: item, state: .Available))
+            if let id = item.id {
+                indexes[id] = index
+            }
+            index += 1
+        }
+    }
 
     public var count: UInt {
         get {
@@ -211,20 +228,17 @@ public struct PageableArray<T: DTOProtocol> {
             return true
         default:
             return false
+            
         }
     }
 
     private mutating func willServeItemAtIndex(index: UInt) {
-        let end = min(self.count, index + numberOfItemsAheadOfLastToTriggerLoadMore)
-        let range = index..<end
-        for i in range {
-            let element = self.elements[Int(i)]
-            if element.state.isUnavailable() {
-                let requestRange = i..<min(self.count, (i+pageSize))
-                markElementsInRangeAsRequested(requestRange)
-                delegate?.loadContentForRange(requestRange, pageSize: pageSize)
-                return
-            }
+        let end = Int(min(self.count, index + numberOfItemsAheadOfLastToTriggerLoadMore)) - 1
+        let element = elements[end]
+        if element.state.isUnavailable() {
+            let requestRange = index..<min(self.count, (index + pageSize))
+            markElementsInRangeAsRequested(requestRange)
+            delegate?.loadContentForRange(requestRange, pageSize: pageSize)
         }
     }
 
